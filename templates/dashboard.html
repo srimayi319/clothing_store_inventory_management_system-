@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Dashboard</title>
+   <link rel="stylesheet" type="text/css" href="/static/css/dashboard.css">
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="container mt-3">
+            <ul class="flashes">
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      {% endwith %}
+  
+
+      
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <a href="#" id="inventory-overview">Inventory overview</a>
+        <hr>
+        <a href="#" id="product-management">Product Management</a>
+        <hr>
+        <a href="#" id="orders">Orders</a>
+        <hr>
+        <a href="#" id="stock-level">Stock Level</a>
+        <hr>
+        <a href="#" id="alerts-notifications">Alerts and Notifications</a>
+        <hr>
+    </div>
+    
+    <div id="content">
+        <h1 style="text-align: center;">CLOTHING STORE INVENTORY</h1>
+
+        <!-- Content will be displayed here -->
+    </div>
+    
+    <script>
+     document.addEventListener('DOMContentLoaded', function() {
+    // Add event listeners to sidebar links
+    document.getElementById('inventory-overview').addEventListener('click', function(event) {
+        event.preventDefault();
+        loadContent('inventory-overview');
+    });
+
+    document.getElementById('product-management').addEventListener('click', function(event) {
+        event.preventDefault();
+        loadContent('product-management');
+        var menu = document.getElementById('product-management-menu');
+        if (menu.style.display === 'none') {
+            menu.style.display = 'block';
+        } else {
+            menu.style.display = 'none';
+        }
+        
+    });
+
+    document.getElementById('orders').addEventListener('click', function(event) {
+        event.preventDefault();
+        loadContent('orders');
+    });
+
+    document.getElementById('stock-level').addEventListener('click', function(event) {
+        event.preventDefault();
+        loadContent('stock-level');
+        
+    });
+
+    document.getElementById('alerts-notifications').addEventListener('click', function(event) {
+        event.preventDefault();
+        loadContent('alerts-notifications');
+    });
+
+  
+});
+
+function loadContent(sectionId) {
+    switch (sectionId) {
+        case 'inventory-overview':
+            fetch('/api/inventory-data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('content').innerHTML = `
+                        <h2 style="text-align: center;">Inventory Overview</h2>
+                        <div class="dashboard-container">
+    <div class="dashboard-box">
+        <p class="dashboard-text">Total Inventory Value:</p>
+        <p class="dashboard-value">Rs ${data.TotalValue}</p>
+    </div>
+    <div class="dashboard-box">
+        <p class="dashboard-text">Total Items in Inventory:</p>
+        <p class="dashboard-value">${data.TotalItems} items</p>
+    </div>
+</div>
+
+                    `;
+                })
+                .catch(error => console.error('Error fetching data:', error));
+            break;
+        
+        case 'product-management':
+        
+
+            document.getElementById('content').innerHTML = `
+                <h2 style="text-align: center;">Product Management</h2>
+                <div id="product-management-menu" style="display: none;">
+            <form id="add-item-form" action="/product_data" method="post">
+                <input type="hidden" name="action" value="add">
+                <label for="item_name">Item Name:</label>
+                <input type="text" id="item_name" name="item_name" required><br><br>
+                <label for="item_quantity">Quantity:</label>
+                <input type="number" id="item_quantity" name="item_quantity" required><br><br>
+                <label for="item_price">Price:</label>
+                <input type="number" id="item_price" name="item_price" step="0.01" required><br><br>
+                <label for="item_category">Category ID:</label>
+                <input type="number" id="item_category" name="item_category" required><br><br>
+                <label for="item_category">Brand ID:</label>
+                <input type="number" id="item_brand" name="item_brand" required><br><br>
+                <label for="item_size">Size:</label>
+                <input type="text" id="item_size" name="item_size" required><br><br>
+                <label for="item_color">Color:</label>
+                <input type="text" id="item_color" name="item_color" required><br><br>
+                <label for="item_material">Material:</label>
+                <input type="text" id="item_material" name="item_material" required><br><br>
+                <label for="item_description">Description:</label>
+                <input type="text" id="item_description" name="item_description" required><br><br>
+                <label for="item_maxstocklevel">Maximum  Stock Level:</label>
+                <input type="number" id="item_maxstocklevel" name="item_maxstocklevel" required><br><br>
+                <label for="item_minstocklevel">Minimum Stock Level:</label>
+                <input type="number" id="item_minstocklevel" name="item_minstocklevel" required><br><br>
+                <button type="submit">Add Item</button>
+            </form>
+            <hr>
+            <form id="delete-item-form" action="/product_data" method="post">
+                <input type="hidden" name="action" value="delete">
+                <label for="item_id">Item ID to Delete:</label>
+                <input type="number" id="item_id" name="item_id" required><br><br>
+                <button type="submit">Delete Item</button>
+            </form>
+            <hr>
+            <form id="view-items-form" action="/product_data" method="post">
+                <input type="hidden" name="action" value="view">
+           <button type="submit" class="center-button">View All Items</button>
+
+            </form>
+        </div>
+            `;
+
+            break;
+
+            case 'orders':
+                    document.getElementById('content').innerHTML = `
+                        <h1 style="text-align: center;">Orders</h1>
+                        <div id="adding_order" >
+                        <form id="add-order-form" action="/add_order" method="post">
+                            <label for="order_id">Order ID:</label>
+                            <input type="number" id="order_id" name="order_id" required><br><br>
+                            <label for="customer_id">Customer ID:</label>
+                            <input type="number" id="customer_id" name="customer_id" required><br><br>
+                            <label for="product_id">Product ID:</label>
+                            <input type="number" id="product_id" name="product_id" required><br><br>
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" name="quantity" required><br><br>
+                            <label for="price">price:</label>
+                            <input type="number" id="price" name="price" required><br><br>
+                            <button type="submit">Place Order</button>
+                        </form>
+                        </div>
+                    `;
+            break;
+
+        case 'stock-level':
+            document.getElementById('content').innerHTML = `
+                <h2 style="text-align: center;">Stock Levels</h2>
+                <div id="stock-level" >
+                <form id="stock-level-form" action="/api/stock_level_data" method="post">
+                    <input type="hidden" name="action" value="Stock Level">
+                    <button type="submit" class="center-button">Low Stock Level Products </button>
+                </form>
+                </div>
+            `;
+
+            break;
+
+            case 'alerts-notifications':
+    fetch('/low_stock_alerts')
+        .then(response => response.json())
+        .then(data => {
+            // Assuming data is an array of alert objects
+            const alertsHtml = data.map(alert => `
+                <div class="alert-item">
+                    <p><strong>Product ID:</strong> ${alert.ProductID}</p>
+                    <p><strong>Quantity in Stock now:</strong> ${alert.QuantityinStock}</p>
+                    <p><strong>Alert Date:</strong> ${alert.AlertDate}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('content').innerHTML = `
+                <h2 style="text-align: center;">Low Stock Alerts</h2>
+                <div class="alert-container">
+                    <div class="alert-box">
+                        <p class="alert-text">Low Stock Alerts:</p>
+                        <div class="alerts-list">
+                            ${alertsHtml}
+                        </div>
+                    </div>
+                </div>
+             <div id="update-stock">
+                <form id="update-item-form" action="/update_stock" method="post">
+                    <label for="item_id">Product id:</label>
+                    <input type="number" name="item_id" required><br><br>
+                    <label for="item_quantity">Restock Quantity:</label>
+                    <input type="number" id="RestockQuantity" name="RestockQuantity" required><br><br>
+                    <button type="submit">Update Item</button>
+            </form>
+            </div>
+            `;
+        });    
+    }
+}            
+        
+    </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Register - INVENTORY MANAGEMENT SYSTEM</title>
+   <link rel="stylesheet" type="text/css" href="/static/css/register.css">
+</head>
+<body>
+    <div class="container">
+        <div class="RegisterHeader">
+            <h1>Register</h1>
+        </div>
+        <div class="RegisterBody">
+            <form action="/register" method="post">
+                <div class="registerInputsContainer">
+                    <label for="username">Username</label>
+                    <input placeholder="Enter your username" type="text" name="username" autocomplete="off" required/>
+                </div>
+                <div class="registerInputsContainer">
+                    <label for="password">Password</label>
+                    <input placeholder="Enter your password" type="password" name="password" autocomplete="off" required/>
+                </div>
+                <div class="registerInputsContainer">
+                    <label for="role">Role</label>
+                    <select name="role">
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                        <!-- Add more role options as needed -->
+                    </select>
+                </div>
+                <div class="registerButtonContainer">
+                    <button type="submit">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

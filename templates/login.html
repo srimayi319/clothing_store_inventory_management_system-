@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>IMS Login - INVENTORY MANAGEMENT SYSTEM</title>
+   <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="LoginHeader">
+            <h1>IMS</h1>
+            <h3>INVENTORY MANAGEMENT SYSTEM</h3>
+        </div>
+        <div class="LoginBody">
+            <form action="" method="post">
+                <div class="loginInputsContainer">
+                    <label for="username">Username</label>
+                    <input placeholder="username" type="text" name="username" autocomplete="off"/>
+                </div>
+                <div class="loginInputsContainer">
+                    <label for="password">Password</label>
+                    <input placeholder="password" type="password" name="password" autocomplete="off"/>
+                </div>
+                <div class="loginInputsContainer">
+                    <label for="role">Role</label>
+                    <select name="role">
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                        <!-- Add more role options as needed -->
+                    </select>
+                </div>
+                <div class="loginButtonContainer">
+                    <button type="submit">Login</button>
+                    <a href="/register"><button type="button">Register</button></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
+    
+
+
+
+
+
+
+
+
+

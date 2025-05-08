@@ -1,0 +1,284 @@
+   
+    
+    .inventory-overview {
+        position: relative;
+        background-size: 400px;
+        width: 80%; /* Adjust as needed */
+        height: 80vh; /* Adjust as needed */
+      }
+      
+      .inventory-overview h2 {
+        text-align: center;
+      }
+      
+      .inventory-overview canvas {
+        position: absolute;
+        top: 70px;
+        right:-90px;
+        max-width: 300px;
+        max-height: 300px;
+        margin:auto;
+      }
+      
+      .sidebar {
+        background-position: fixed;
+          width: 250px;
+          background-color: #3E2723;
+          height: 120vh;
+          float: left;
+          padding: 20px;
+          
+      }
+      .sidebar h2 {
+          color: #FFFFFF; /* Change the color of the Dashboard heading */
+          font-size: 30px; /* Adjust the font size if needed */
+      }
+      .sidebar a {
+          display: block;
+          color: white;
+          text-decoration: none;
+          padding: 10px ;
+          font-size: 20px;
+      }
+      .sidebar a:hover {
+          background-color: #222222;
+          cursor:grab;
+      }
+      .content {
+      flex:1
+      }
+      
+      .summary-bar {
+        position: absolute;
+        left:300px;
+        top:60px;
+          display: inline-table;
+          
+          background-color: #EEEEEE;
+          padding: 10px;
+          border-radius: 5px;
+      }
+      .summary-item {
+        
+          font-size: 20px;
+          padding: 10px;
+      }
+      #product-management-menu {
+        margin-left: 300px; /* Adjust according to your sidebar width */
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    
+    #product-management-menu form {
+        margin-bottom: 10px; /* Reduced margin bottom */
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+        gap: 10px; /* Gap between columns */
+    }
+    
+    #product-management-menu label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        padding-left: 10px; /* Add padding-left for tab space */
+    }
+    
+    #product-management-menu input,
+    #product-management-menu button {
+        display: block;
+        width: 100%; /* Full width within each column */
+        padding: 8px; /* Adjusted padding */
+        margin-bottom: 8px; /* Reduced margin bottom */
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    
+    #product-management-menu button {
+        background-color: #3E2723;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    
+    #product-management-menu button:hover {
+        background-color: #222222;
+    }
+    .center-button {
+      display: block;
+      margin: 0 auto;
+  }
+  .dashboard-container {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-box {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.dashboard-text {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.dashboard-value {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+/*from here*/
+
+
+.alert-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.alert-box {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    width: 80%;
+    max-width: 800px;
+}
+
+.alert-text {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.alerts-list {
+    margin-top: 10px;
+}
+
+.alert-item {
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+    font-size: 20px;
+}
+
+.alert-item:last-child {
+    border-bottom: none;
+}
+
+.alert-item p {
+    margin: 5px 0;
+    padding:10px;
+}
+#update-stock form {
+    margin-bottom: 10px; /* Reduced margin bottom */
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    gap: 10px; /* Gap between form elements */
+}
+
+#update-stock label{
+    font-size:20px;
+    margin-left:300px;
+}
+#update-stock input {
+    width: 50%; /* Full width for input fields */
+    padding: 8px; /* Adjusted padding */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left:300px;
+}
+
+#update-stock button {
+    display: block;
+    width: 50%; /* Full width */
+    padding: 15px; /* Adjusted padding */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #3E2723;
+    color: white;
+    cursor: pointer;
+    margin-left:300px;
+    font-size: 19px;
+}
+
+#update-stock button:hover {
+    background-color: #222222;
+}
+
+
+#stock-level button{
+    display: block;
+    width: 20%; /* Full width */
+    padding: 15px; /* Adjusted padding */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #3E2723;
+    color: white;
+    cursor: pointer;
+    margin-left:710px;
+    font-size: 19px;
+}
+#adding_order form {
+    
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    display: grid;
+   
+}
+
+#adding_order label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+   
+}
+
+#adding_order input[type="number"] {
+    display: block;
+    width: 100%; /* Full width within each column */
+    padding: 8px; /* Adjusted padding */
+    margin-bottom: 8px; /* Reduced margin bottom */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+#adding_order button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#adding_order button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Ensure consistent box-sizing */
+#adding_order input,
+#adding_order button {
+    box-sizing: border-box;
+}
+ 
+

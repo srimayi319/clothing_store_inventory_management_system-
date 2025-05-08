@@ -1,0 +1,83 @@
+body {
+    background: url("/static/login.jpg") no-repeat center center fixed;
+    background-size: cover;
+    font-family: arial;
+    margin: 0; /* Added to reset default margin */
+    padding: 0; /* Added to reset default padding */
+}
+
+div.RegisterHeader {
+    text-align: center;
+    margin-top: 50px; /* Added margin-top for spacing */
+}
+
+div.RegisterHeader h1 {
+    font-size: 60px;
+    color: #030303;
+    padding: 0;
+    margin: 0;
+    font-family: arial;
+}
+
+div.RegisterBody form {
+    margin: 0 auto;
+    width: 400px; /* Adjusted form width */
+    background: rgba(0, 0, 0, 0.5);
+    padding: 50px;
+    text-align: center;
+    border-radius: 10px; /* Added border-radius for rounded corners */
+}
+
+div.registerInputsContainer {
+    margin-top: 30px; /* Adjusted margin-top */
+    text-align: center;
+}
+
+div.registerInputsContainer label {
+    display: block;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    color: #090909;
+    margin-bottom: 10px; /* Adjusted margin bottom */
+}
+
+div.registerInputsContainer input {
+    height: 30px; /* Adjusted input height */
+    width: 100%; /* Set input width to 100% */
+    border: 2px solid #0f0f0f;
+    font-size: 15px;
+    padding: 5px;
+    text-align: center;
+    box-sizing: border-box; /* Added box-sizing for padding calculation */
+}
+
+div.registerInputsContainer select {
+    height: 30px; /* Adjusted select height */
+    width: 100%; /* Set select width to 100% */
+    border: 2px solid #0f0f0f;
+    font-size: 15px;
+    padding: 5px;
+    text-align: center;
+    box-sizing: border-box; /* Added box-sizing for padding calculation */
+}
+
+div.registerButtonContainer {
+    margin-top: 30px; /* Adjusted margin-top */
+    text-align: center;
+}
+
+div.registerButtonContainer button {
+    font-size: 20px;
+    padding: 10px 40px;
+    background: #121212;
+    border: none;
+    color: #ede6e6;
+    cursor: pointer; /* Added cursor pointer */
+    border-radius: 5px; /* Added border-radius for rounded corners */
+}
+
+div.registerButtonContainer button:hover {
+    background: #1c1c1c; /* Added hover effect */
+}
+
