@@ -8,53 +8,140 @@
     <style>
         .container {
             text-align: center;
-            margin-top: 20px;
+            margin: 20px;
         }
-        /* Button styling */
         .button {
             display: inline-block;
-            padding: 10px 20px;
-            margin: 10px 0;
-            font-size: 16px;
-            color: #c9c8c8;
-            background-color: #141414;
+            padding: 8px 15px;
+            margin: 5px;
+            font-size: 15px;
+            color: white;
+            background-color: #343a40;
             border: none;
-            border-radius: 5px;
-            text-align: center;
-            text-decoration: none;
+            border-radius: 4px;
             cursor: pointer;
         }
         .button:hover {
-            background-color: #393838;
+            background-color: #495057;
+        }
+        table {
+            margin: auto;
+            width: 90%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+        }
+        form.inline-form {
+            display: inline-block;
+        }
+        .alert {
+            margin: 10px auto;
+            width: 80%;
+            padding: 10px;
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
         }
     </style>
 </head>
 <body>
-    <h1>Product List</h1>
+
+    <h1 style="text-align: center;">Product List</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="container">
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <form method="GET" action="{{ url_for('viewItems') }}">
+            <input type="text" name="search" placeholder="Search by name" value="{{ request.args.get('search', '') }}">
+            <select name="categories">
+                <option value="">All Categories</option>
+                <option value="1" {% if request.args.get('category') == '1' %}selected{% endif %}>Shirts</option>
+                <option value="2" {% if request.args.get('category') == '2' %}selected{% endif %}>T-Shirts</option>
+                <option value="3" {% if request.args.get('category') == '1' %}selected{% endif %}>Pants</option>
+                <option value="4" {% if request.args.get('category') == '2' %}selected{% endif %}>Jeans</option>
+                <option value="5" {% if request.args.get('category') == '1' %}selected{% endif %}>Dresses</option>
+                <option value="6" {% if request.args.get('category') == '2' %}selected{% endif %}>Kurtas</option>
+                <option value="7" {% if request.args.get('category') == '1' %}selected{% endif %}>Jackets</option>
+                <option value="8" {% if request.args.get('category') == '2' %}selected{% endif %}>Skirts</option>
+                <option value="9" {% if request.args.get('category') == '1' %}selected{% endif %}>Sarees</option>
+                <option value="10" {% if request.args.get('category') == '2' %}selected{% endif %}>Shorts</option>
+            </select>
+            <select name="stock">
+                <option value="">Any Stock</option>
+                <option value="low" {% if request.args.get('stock') == 'low' %}selected{% endif %}>Low Stock</option>
+                <option value="out" {% if request.args.get('stock') == 'out' %}selected{% endif %}>Out of Stock</option>
+            </select>
+            <button type="submit" class="button">Apply Filters</button>
+        </form>
+
+        <button onclick="document.getElementById('add-form').style.display='block'" class="button">+ Add Product</button>
+    </div>
+
+    <div id="add-form" class="container" style="display: none;">
+        <form action="{{ url_for('addProduct') }}" method="post">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="number" name="quantityInStock" placeholder="Qty" required>
+            <input type="number" step="0.01" name="price" placeholder="Price" required>
+            <input type="number" name="categoryId" placeholder="Category ID" required>
+            <input type="number" name="brandId" placeholder="Brand ID" required>
+            <input type="text" name="size" placeholder="Size">
+            <input type="text" name="color" placeholder="Color">
+            <input type="text" name="material" placeholder="Material">
+            <input type="text" name="description" placeholder="Description">
+            <input type="number" name="maximumStockLevel" placeholder="Max Stock">
+            <input type="number" name="minimumStockLevel" placeholder="Min Stock">
+            <button type="submit" class="button">Add</button>
+        </form>
+    </div>
+
     <table>
         <thead>
             <tr>
-                <th>Product ID</th>
-                <th>Product Name</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Qty</th>
                 <th>Price</th>
-                <th>Stock Quantity</th>
+                <th>Restock</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
             {% for product in products %}
-                <tr>
-                    <td>{{ product[0] }}</td>
-                    <td>{{ product[1] }}</td>
-                    <td>{{ product[2] }}</td>
-                    <td>{{ product[3] }}</td>
-                </tr>
+            <tr>
+                <td>{{ product.productId }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.quantityInStock }}</td>
+                <td>₹{{ product.price }}</td>
+                <td>
+                    <form action="{{ url_for('updateStock') }}" method="post" class="inline-form">
+                        <input type="hidden" name="productId" value="{{ product.productId }}">
+                        <input type="number" name="restockQuantity" min="1" placeholder="Qty" required style="width: 60px;">
+                        <button type="submit" class="button">+</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ url_for('deleteProduct', productId=product.productId) }}" method="post" class="inline-form" onsubmit="return confirm('Delete this product?')">
+                        <button type="submit" class="button" style="background-color: #dc3545;">×</button>
+                    </form>
+                </td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
 
     <div class="container">
-        <a href="{{ url_for('dashboard') }}" class="button">Back to Dashboard</a>
+        <a href="{{ url_for('dashboard') }}" class="button">← Back to Dashboard</a>
     </div>
+
 </body>
 </html>
-

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Low Stock Alerts</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <style>
+        .alert-table {
+            width: 90%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        .alert-table th, .alert-table td {
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .alert-table th {
+            background-color: #3E2723;
+            color: white;
+        }
+        .low-stock-row {
+            background-color: #ffe6e6;
+        }
+        .alert-heading {
+            text-align: center;
+            margin: 30px 0 10px;
+            font-size: 28px;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="alert-heading">Low Stock Alerts</h2>
+
+    {% if alerts %}
+    <table class="alert-table">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Quantity In Stock</th>
+                <th>Alert Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alert in alerts %}
+            <tr class="low-stock-row">
+                <td>{{ alert.productId }}</td>
+                <td>{{ alert.productName }}</td>
+                <td>{{ alert.quantityInStock }}</td>
+                <td>{{ alert.alertDate.strftime('%Y-%m-%d %H:%M') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align:center;">No low stock alerts at the moment.</p>
+    {% endif %}
+</body>
+</html>
